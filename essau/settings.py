@@ -9,8 +9,18 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+#utilities
+import environ
+#django
 from pathlib import Path
+
+#third-party apps
+
+#local apps
+
+#Initializing environment variables
+env_var = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4y$b(^-i6f$@))xi#d=3orozp7zq2#%@n70=t)y4d45c)=qfr3'
+SECRET_KEY = env_var('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +53,10 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'comments',
+    'images',
+    'posts',
+    'users',
 
 )
 
@@ -86,12 +100,13 @@ WSGI_APPLICATION = 'essau.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'essau',
-        'USER': 'essau',
-        'PASSWORD': '!mpr0v3M0r33v3ryD2y',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': env_var('DATABASE_ENGINE'),
+        'NAME': env_var('DATABASE_NAME'),
+        'USER': env_var('DATABASE_USER'),
+        'PASSWORD': env_var('DATABASE_PASS'),
+        'HOST': env_var('DATABASE_HOST'),
+        'PORT': env_var('DATABASE_PORT'),
+        
     }
 }
 
@@ -134,7 +149,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    BASE_DIR/'static'
+    BASE_DIR/'static',
 )
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

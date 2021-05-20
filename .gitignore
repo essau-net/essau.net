@@ -1,1 +1,3 @@
 venv/
+essau/.env
+__pycache__/
