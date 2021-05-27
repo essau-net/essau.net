@@ -19,8 +19,8 @@ class TagsImg(models.Model):
 
 
 class Tagsimg_Images(models.Model):
-    tagimg = models.ForeignKey(TagsImg, models.DO_NOTHING)
-    image = models.ForeignKey(Images, models.DO_NOTHING)
+    tagimg_id = models.ForeignKey(TagsImg, models.DO_NOTHING)
+    image_id = models.ForeignKey(Images, models.DO_NOTHING)
 
     class Meta:
         managed = False

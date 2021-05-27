@@ -1,0 +1,33 @@
+:root{
+    --navbar-background-color: #3999de;
+    --logo-navbar-background-color: #00a13c;
+}
+.nav{
+    background-color: var(--navbar-background-color);
+    height: 100%;
+    width: 100%;
+}
+.nav .nav-container {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.nav .nav-container li {
+    font-size: 1.8rem;
+    list-style: none;
+}
+
+.nav .nav-container li:first-child{
+    background-color: var(--logo-navbar-background-color);
+    border-radius: 7px;
+    font-size: 2.3rem;
+    max-height: 38px;
+    padding: 5px;
+}
+
+.nav .nav-container li:nth-child(2){
+    flex-grow: 1;
+    max-width: 25vw;
+}

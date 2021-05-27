@@ -11,5 +11,5 @@ class Users(models.Model):
     active = models.IntegerField(blank=True, null=False)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'users'

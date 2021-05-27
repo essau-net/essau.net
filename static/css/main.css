@@ -1,0 +1,18 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 62.5%;
+    background-color: #e4e4e2;
+    color: #fffffd;
+}
+a{
+    text-decoration: none;
+}
+header {
+    height: 47px;
+    width: 100%;
+}

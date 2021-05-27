@@ -1,14 +1,16 @@
 #utils
 #django 
 from django.shortcuts import render
-from posts import models  
-#third apps
-#local apps
+from django.views.generic import ListView
+
+#Local models
+from posts.models import Posts
 
 
-# Create your views here.
-def list_posts(request):
-    """List existing posts"""
-    posts = models.Posts.objects.all()
-    print(posts)
-    return render(request, 'posts/feed.html', {'posts': posts})
+class PostFeedView(ListView):
+    """Retun published posts"""
+
+    template_name = 'posts/feed.html'
+    model = Posts
+    ordering = ('-created_at',)
+    context_object_name = 'posts'

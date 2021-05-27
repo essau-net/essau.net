@@ -15,8 +15,8 @@ class Categories(models.Model):
 
 
 class Posts(models.Model):
-    user = models.ForeignKey(Users, models.DO_NOTHING)
-    category = models.ForeignKey(Categories, models.DO_NOTHING)
+    user_id = models.ForeignKey(Users, models.DO_NOTHING)
+    category_id = models.ForeignKey(Categories, models.DO_NOTHING)
     title = models.CharField(max_length=150)
     status = models.CharField(max_length=9, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
@@ -24,18 +24,18 @@ class Posts(models.Model):
     updated_at = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'posts'
 
 
 class Comments(models.Model):
-    user = models.ForeignKey(Users, models.DO_NOTHING)
-    post = models.ForeignKey(Posts, models.DO_NOTHING)
+    user_id = models.ForeignKey(Users, models.DO_NOTHING)
+    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'comments'
 
 
@@ -48,8 +48,8 @@ class Languages(models.Model):
 
 
 class PostImages(models.Model):
-    post = models.ForeignKey('Posts', models.DO_NOTHING)
-    image = models.ForeignKey(Images, models.DO_NOTHING)
+    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
+    image_id = models.ForeignKey(Images, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -57,8 +57,8 @@ class PostImages(models.Model):
 
 
 class PostsLanguages(models.Model):
-    post = models.ForeignKey(Posts, models.DO_NOTHING)
-    language = models.ForeignKey(Languages, models.DO_NOTHING)
+    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
+    language_id = models.ForeignKey(Languages, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -74,8 +74,8 @@ class Tags(models.Model):
 
 
 class PostsTags(models.Model):
-    post = models.ForeignKey(Posts, models.DO_NOTHING)
-    tag = models.ForeignKey('Tags', models.DO_NOTHING)
+    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
+    tag_id = models.ForeignKey('Tags', models.DO_NOTHING)
 
     class Meta:
         managed = False

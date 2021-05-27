@@ -7,12 +7,17 @@
 
         {% endblock %}
         {% load static %}
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     </head>
     <body>
-        {% include "nav.html" %}
-        {% block container %}
-        {% endblock %}
+        <header>
+            {% include "nav.html" %}
+        </header>
+        <main>
+            {% block container %}
+            {% endblock %}
+        </main>
         
     </body>
 </html>
