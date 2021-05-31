@@ -6,9 +6,10 @@ from django.urls import path
 from posts import views 
 
 urlpatterns = [
+
     path(
         route = '',
         view = views.PostFeedView.as_view(),
-        name = 'feed'
-    )
+        name= 'feed'
+    ),
 ]

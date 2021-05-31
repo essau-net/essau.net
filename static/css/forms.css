@@ -1,0 +1,112 @@
+:root{
+    --border-color-input: #05558e;
+}
+/* Form LOGIN*/
+.form-login-container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-login{
+    display: flex;
+    flex-direction: column;
+    height: 23vh;
+    justify-content: space-between;
+    width: 50vw;
+    font-size: 1.6rem;
+}
+
+.field-login {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;   
+}
+
+.field-login *{
+    width: 90%;
+}
+
+.field-login input {
+    border-radius: 6px;
+    padding: 2px;
+    
+}
+
+.form-login .btn-login-container__element {
+    align-items: flex-end;
+    background-color: #0b80d3;
+    border-radius: 8px;
+    color: var(--font-color);
+    margin-left: 10px;
+    padding: 4px; 
+    width: 20vw;
+}
+
+.form-login .btn-login-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 44vw;
+    
+}
+
+
+@media (min-width: 600px) {
+/* Form LOGIN*/
+    .form-login-container{
+        height: 55vh;
+    }
+
+    .form-login{
+        font-size: 1.8rem;
+        height: 32vh;
+        width: 55vw;
+    }
+
+    .field-login input {
+        padding: 6px;
+    }
+
+    .form-login .btn-login-container {
+        width: 50vw;
+    }
+
+    .form-login .btn-login-container__element {
+        font-size: 1.8rem;
+        padding: 3px;
+        width: 20vw;
+    }
+}
+
+
+@media (min-width: 800px) {
+    /* Form LOGIN*/
+    .form-login-container {
+        height: 60vh;
+    }
+
+    .form-login{
+        font-size: 2rem;
+        height: 40vh;
+        width: 60vw;
+    }
+
+    .form-login input {
+        margin-top: 8px;
+        padding: 8px;
+    }
+
+    .form-login .btn-login-container {
+        width: 56vw;
+    }
+
+    .form-login .btn-login-container__element {
+        padding: 3px;
+        width: 15vw;
+    }
+    
+}

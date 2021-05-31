@@ -1,4 +1,6 @@
-
+:root{
+    --font-color: #fffffd;
+}
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,7 +9,6 @@
 html {
     font-size: 62.5%;
     background-color: #e4e4e2;
-    color: #fffffd;
 }
 a{
     text-decoration: none;

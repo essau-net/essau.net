@@ -1,11 +1,13 @@
 :root{
     --navbar-background-color: #3999de;
     --logo-navbar-background-color: #00a13c;
+    
 }
 .nav{
     background-color: var(--navbar-background-color);
     height: 100%;
     width: 100%;
+    color: var(--font-color);
 }
 .nav .nav-container {
     align-items: center;
@@ -30,4 +32,16 @@
 .nav .nav-container li:nth-child(2){
     flex-grow: 1;
     max-width: 25vw;
+}
+
+@media (min-width: 600px) {
+    .nav .nav-container li:nth-child(2){
+        max-width: 40vw;
+    }   
+}
+
+@media (min-width: 800px) {
+    .nav .nav-container li:nth-child(2){
+        max-width: 55vw;
+    }   
 }
