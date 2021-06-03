@@ -3,7 +3,8 @@ from django.db import models
 
 #Local apps
 from images.models import Images
-from users.models import Users
+from users.models import User
+
 
 
 class Categories(models.Model):
@@ -15,7 +16,7 @@ class Categories(models.Model):
 
 
 class Posts(models.Model):
-    user_id = models.ForeignKey(Users, models.DO_NOTHING)
+    user_id = models.ForeignKey(User, models.DO_NOTHING)
     category_id = models.ForeignKey(Categories, models.DO_NOTHING)
     title = models.CharField(max_length=150)
     status = models.CharField(max_length=9, blank=True, null=True)
@@ -24,18 +25,18 @@ class Posts(models.Model):
     updated_at = models.DateTimeField()
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'posts'
 
 
 class Comments(models.Model):
-    user_id = models.ForeignKey(Users, models.DO_NOTHING)
+    user_id = models.ForeignKey(User, models.DO_NOTHING)
     post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField()
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'comments'
 
 

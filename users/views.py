@@ -1,4 +1,5 @@
 """Users views"""
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.urls.base import reverse_lazy
 from django.views.generic import FormView
@@ -13,6 +14,10 @@ class LoginView(auth_views.LoginView):
     template_name = 'users/login.html'
     redirect_authenticated_user = True
 
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    """Logout view """
+
+    template_name = 'users/logged_out.html'
 
 class SignupView(FormView):
     template_name = 'users/signup.html'
@@ -21,7 +26,6 @@ class SignupView(FormView):
     
     def form_valid(self, form):
         """Save form data"""
-
         form.save()
         return super().form_valid(form)
         

@@ -1,5 +1,7 @@
 """Users URLs"""
 #Django
+from django.contrib.auth.views import LogoutView
+from django.db import router
 from django.urls import path
 
 #Views
@@ -14,9 +16,16 @@ urlpatterns = [
     ),
 
     path(
+        route='logout/',
+        view=views.LogoutView.as_view(),
+        name='log0ut'
+    ),
+
+    path(
         route='signup/',
         view=views.SignupView.as_view(),
-        name='sigunp',
+        name='signup',
     ),
     
+
 ]

@@ -1,3 +1,11 @@
-from django.contrib import admin
+"""User admin classes """
 
-# Register your models here.
+#Django
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
+#Local
+from users.models import User
+
+
+admin.site.register(User, UserAdmin)

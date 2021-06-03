@@ -1,74 +1,119 @@
 :root{
     --border-color-input: #05558e;
+    --btn-background-color: #0b80d3;
 }
-/* Form LOGIN*/
-.form-login-container{
+ /*General FORM*/
+.form-container {
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 40vh;
     justify-content: center;
     width: 100%;
 }
 
-.form-login{
+.form{
     display: flex;
     flex-direction: column;
-    height: 23vh;
-    justify-content: space-between;
-    width: 50vw;
     font-size: 1.6rem;
+    justify-content: space-evenly;
 }
 
-.field-login {
+.field {
     align-items: center;
     display: flex;
     flex-direction: column;
-    width: 100%;   
+    width: 100%; 
 }
 
-.field-login *{
+.field *{
     width: 90%;
 }
 
-.field-login input {
+.field input {
     border-radius: 6px;
-    padding: 2px;
-    
+    padding: 3px;
+}
+
+.btn-form-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-form-container__element {
+    align-items: flex-end;
+    background-color: var(--btn-background-color);
+    border-radius: 8px;
+    font-size: 1.4rem;
+    color: var(--font-color);
+    padding: 4px;
+}
+/* Form LOGIN*/
+.form-login-container{
+    height: 40vh;
+}
+
+.form-login{
+    height: 23vh;
+    width: 55vw;
 }
 
 .form-login .btn-login-container__element {
-    align-items: flex-end;
-    background-color: #0b80d3;
-    border-radius: 8px;
-    color: var(--font-color);
     margin-left: 10px;
-    padding: 4px; 
-    width: 20vw;
+    width: 25vw;
+    
 }
 
 .form-login .btn-login-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 44vw;
-    
+    width: 51vw;
+}
+
+
+/* Form SIGNUP */
+
+.form-signup-container {
+    height: 63vh;
+}
+
+.form-signup{
+    height: 60vh;
+    width: 58vw;
+}
+
+.form-signup .btn-signup-container{
+    width: 54vw;
+}
+
+.form-signup .btn-signup-container__element{
+    margin-right: 2vw;
+    width: 22vw;
 }
 
 
 @media (min-width: 600px) {
-/* Form LOGIN*/
+
+    /*general FORM*/
+    .form {
+        font-size: 1.8rem;
+    }
+
+    .field input {
+        padding: 6px;
+    }
+
+    .btn-form-container__element {
+        font-size: 1.8rem;
+        padding: 3px;
+    }
+
+
+    /* Form LOGIN*/
     .form-login-container{
         height: 55vh;
     }
 
     .form-login{
-        font-size: 1.8rem;
         height: 32vh;
         width: 55vw;
-    }
-
-    .field-login input {
-        padding: 6px;
     }
 
     .form-login .btn-login-container {
@@ -76,28 +121,53 @@
     }
 
     .form-login .btn-login-container__element {
-        font-size: 1.8rem;
-        padding: 3px;
+        
         width: 20vw;
+    }
+
+
+    /*form SIGNUP */
+    .form-signup-container{
+        height: 73vh;
+    }
+
+    .form-signup{
+        height: 70vh;
+    }
+
+    .form-signup .btn-signup-container__element {
+        width: 15vw;
     }
 }
 
 
 @media (min-width: 800px) {
+    
+    /*general FORM*/
+    .form {
+        font-size: 2rem;
+    }
+
+    .field input {
+        padding: 8px;
+    }
+
+    .btn-form-container__element {
+        font-size: 1.8rem;
+        padding: 3px;
+    }
     /* Form LOGIN*/
     .form-login-container {
         height: 60vh;
     }
 
     .form-login{
-        font-size: 2rem;
         height: 40vh;
         width: 60vw;
     }
 
     .form-login input {
         margin-top: 8px;
-        padding: 8px;
     }
 
     .form-login .btn-login-container {
@@ -105,7 +175,6 @@
     }
 
     .form-login .btn-login-container__element {
-        padding: 3px;
         width: 15vw;
     }
     

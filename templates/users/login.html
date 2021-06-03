@@ -9,23 +9,27 @@
 <!-- <article class="logo">
     <h2>M</h1>
 </article> -->
-<article class="form-login-container">
-    <form class="form-login" action="{% url 'users:login' %}">
+{% if form.errors %}
+    <p>Something went wrong {{ form.errors }} </p>
+{% endif %}
+
+<article class="form-container form-login-container">
+    <form action="{% url 'users:login' %}" method="POST" class="form form-login">
         {% csrf_token %}
 
-        <label for="username" class="field-login">
+        <label for="username" class="field field-login">
             <span class="field-login__element">Nombre de usuario:</span>
-            <input id="username" class="field__element" type="text" placeholder="Username" name="username">
+            <input type="text" id="username" class="field-login__element" placeholder="Username" name="username">
         </label>
 
-        <label for="password" class="field-login">
+        <label for="password" class="field field-login">
             <span class="field-login__element">Contraseña</span>
-            <input id="password" class="field__element" type="password" placeholder="Password" name="password">
+            <input type="password" id="password" class="field-login__element" placeholder="Password" name="password">
         </label>
 
-        <div class="btn-login-container">
-            <button class="btn-login-container__element">Registrarse</button>
-            <button class="btn-login-container__element" type="submit">Enviar</button>
+        <div class="btn-form-container btn-login-container">
+            <button class="btn-form-container__element btn-login-container__element">Registrarse</button>
+            <button type="submit" class="btn-form-container__element btn-login-container__element">Enviar</button>
         </div>
 
 

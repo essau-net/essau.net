@@ -3,46 +3,69 @@
 #Django
 from django import forms
 
-#Users
-from users.models import Users
+#local
+from users.models import User
 
 
 class SignupForm(forms.Form):
     """Sign up Form"""
 
     username = forms.CharField(min_length=1, max_length=30)
+    
+    email = forms.CharField(
+        min_length=6,
+        widget=forms.EmailInput(),
+    )
+
+    first_name = forms.CharField(
+        min_length=2,
+        max_length=150,
+    )
+    last_name = forms.CharField(
+        min_length=2,
+        max_length=150,
+    )
 
     password = forms.CharField(
+        min_length=4,
         widget=forms.PasswordInput(),
     )
     password_confirmation = forms.CharField(
+        min_length=4,
         widget=forms.PasswordInput(),
     )
 
-    permission_level = forms.CharField(max_length=9)
-
-    url_profile_image = forms.URLField(max_length=250)
+    
 
 
     def clean_username(self):
         """Username must be unique"""
-
-        data = super().clean()
-
         username = self.cleaned_data['username']
-        username_is_taken = Users.objects.filter(username=username)
-
+        username_is_taken = User.objects.filter(username=username)
+        print(f'\n\n\n clean_username \n\n\n')
         if username_is_taken:
             raise forms.ValidationError('Username is already in use')
 
-        return data
+        return username
+
+
+    def clean_email(self):
+        """Email must be unique"""
+
+        email = self.cleaned_data['email']
+        email_is_taken = User.objects.filter(email=email)
+        print(f'\n\n\n clean_email \n\n\n')
+        if email_is_taken:
+            raise forms.ValidationError('Email is alredy in use')
+
+        return email
 
 
     def clean(self):
         """Verify if passwords match"""
 
         data = super().clean()
-
+        print(f'\n\n\n Dentro de clean {data} \n\n\n')
         password = data['password']
         password_confirmation = data['password_confirmation']
 
@@ -57,4 +80,4 @@ class SignupForm(forms.Form):
         data = self.cleaned_data
         data.pop('password_confirmation')
 
-        Users.objects.create_user(**data)
+        User.objects.create_user(**data)
