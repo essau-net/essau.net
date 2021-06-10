@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head_content %}
+    <link rel="stylesheet" href=" {% static 'css/forms.css' %} ">
+    <link rel="stylesheet" href=" {% static 'css/manage-tags.css' %} ">
+{% endblock %}
+{% block scripts %}
+    <script src=" {% static 'js/manage-tags.js' %} "></script>        
+{% endblock %}
+
+{% block container %}
+    <article class="form-container-new-post form-container">
+        <form action=" {% url 'posts:new_post' %}" method="POST" class="form-new-post form">
+            {% csrf_token %}
+            
+            <label for="title" class="field-new-post field">
+                <span class="field-new-post__element">Titulo</span>
+                <input type="text" id="title" class="field-new-post__element" placeholder="El titulo de tu post" name="title">
+            </label>
+
+            <label for="language" class="field-new-post field">
+                <span class="field-new-post__element">
+                    Idioma
+                </span>
+                <input type="text" id="language" class="field-new-post__element" placeholder="Idioma del post" name="language">
+            </label>
+
+            <label for="category_name" class="field-new-post field">
+                <span class="field-new-post__element">
+                    Categoria
+                </span>
+                <input type="text" id="category_name" class="field-new-post__element" placeholder="Categoria del post" name="category_name">
+            </label>
+
+            <label for="tags-input" class="field-new-post field">
+                <span class="field-new-post__element">Tags</span>
+                <input id="tags-input" class="field-new-post__element" placeholder="Tags del post" list="tags-options" onkeydown="return event.key != 'Enter';">
+                <datalist id="tags-options">
+                    <option value="Books"></option>
+                    <option value="Computer"></option>
+                    <option value="History"></option>
+                </datalist>
+                <ul id="list-tags" class="tag-list">
+
+                </ul>
+                <input type="hidden" id="tags" name="tags">
+            </label>
+
+            <label for="content" class="field-new-post field">
+                <span class="field-new-post__element">
+                    Contenido
+                </span>
+                <textarea id="content"  class="field-new-post__element" placeholder="Escribe tus ideas" name="content" rows="10"></textarea>
+            </label>
+
+            <label for="images" class="field-new-post field">
+                <span class="field-new-post__element">
+                    Images
+                </span>
+                <input type="file" class="field-new-post__element" multiple>
+            </label>
+            
+            <div class="field-new-post btn-form-new-post-container btn-form-container">
+                <input type="submit" class="btn-form-new-post-container__element btn-form-container__element">
+            </div>
+
+        </form>
+    </article>
+{% endblock %}
