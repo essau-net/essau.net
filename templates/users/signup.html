@@ -7,41 +7,98 @@
 
 {% block container %}
 
-<article class="form-container form-signup-container">
-    {% if forms.errors %}
-        <p> {{ forms.errors }} </p>
-    {% endif %}
-    <form action=" {% url 'users:signup' %} " method="POST" class="form-signup form">
+<article class="form-container form-signup-container 
+    {% if form.errors %} 
+        form-signup-container-error
+    {% endif %} ">
+    <form action=" {% url 'users:signup' %} " method="POST" class="form-signup form
+    {% if form.errors %}
+        form-signup-error 
+    {% endif %} ">
         {% csrf_token %}
 
-        <label for="username" class="field field-signup">
+        {% for error in form.non_field_errors %}
+            <div class="field-error">
+                <p> {{ error }} </p>
+            </div>
+        {% endfor %}
+
+        <label for="username" class="field field-signup 
+            {%if form.username.errors %} 
+                field-error
+            {%endif%} ">
             <span class=" field-signup__element">Username</span>
             <input type="text" id="username" class="field-signup__element" name="username" placeholder="Username">
+            <p>
+                {% for error in form.username.errors %}
+                    {{error}}
+                {% endfor %}
+            </p>
         </label>
 
-        <label for="email" class="field field-signup">
+        <label for="email" class="field field-signup
+            {% if form.email.errors %} 
+                field-error
+            {% endif %} ">
             <span class="field-signup__element">Email</span>
-            <input type="email" id="email" class="field-signup__element" name="email" placeholder="email" >
+            <input type="email" id="email" class="field-signup__element" name="email" placeholder="email">
+            <p>
+                {% for error in form.email.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
         </label>
 
-        <label for="first_name" class="field field-signup">
+        <label for="first_name" class="field field-signup
+            {% if form.first_name.errors %} 
+                field-error
+            {% endif %}">
             <span class="fiel-signup__element">Nombre(s)</span>
             <input type="text" id="first_name"  class="field-signup__element" name="first_name" placeholder="Juan">
+            <p>
+                {% for error in form.first_name.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
         </label>
 
-        <label for="last_name" class="field field-signup">
+        <label for="last_name" class="field field-signup
+            {% if form.last_name.errors %} 
+                field-error
+            {% endif %}">
             <span class="fiel-signup__element">Apellido(s)</span>
             <input type="text" id="last_name"  class="field-signup__element" name="last_name" placeholder="Peréz">
+            <p>
+                {% for error in form.last_name.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
         </label>
 
-        <label for="password" class="field field-signuo">
+        <label for="password" class="field field-signup
+            {% if form.password.errors %} 
+                field-error
+            {% endif %}">
             <span class=" field-signup__element">Contraseña</span>
             <input type="password" id="password" class="field-signup__element" name="password" placeholder="password">
+            <p>
+                {% for error in form.password.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
         </label>
 
-        <label for="password_confirmation" class="field field-signup">
+        <label for="password_confirmation" class="field field-signup
+            {% if form.password_confirmation.errors %} 
+                field-error
+            {% endif %}">
             <span class="field-signup__element">Confirma tu contraseña</span>
             <input type="password" id="password_confirmation" class="field-signup__element" name="password_confirmation" placeholder="password">
+            <p>
+                {% for error in form.password_confirmation.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
         </label>
 
         <div class="btn-form-container btn-signup-container">

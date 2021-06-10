@@ -26,6 +26,8 @@ class SignupView(FormView):
     
     def form_valid(self, form):
         """Save form data"""
+
+        import pdb; pdb.set_trace()
         form.save()
         return super().form_valid(form)
         

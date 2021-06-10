@@ -40,9 +40,9 @@ class SignupForm(forms.Form):
 
     def clean_username(self):
         """Username must be unique"""
+
         username = self.cleaned_data['username']
         username_is_taken = User.objects.filter(username=username)
-        print(f'\n\n\n clean_username \n\n\n')
         if username_is_taken:
             raise forms.ValidationError('Username is already in use')
 
@@ -54,7 +54,6 @@ class SignupForm(forms.Form):
 
         email = self.cleaned_data['email']
         email_is_taken = User.objects.filter(email=email)
-        print(f'\n\n\n clean_email \n\n\n')
         if email_is_taken:
             raise forms.ValidationError('Email is alredy in use')
 
@@ -65,9 +64,12 @@ class SignupForm(forms.Form):
         """Verify if passwords match"""
 
         data = super().clean()
-        print(f'\n\n\n Dentro de clean {data} \n\n\n')
-        password = data['password']
-        password_confirmation = data['password_confirmation']
+
+        if 'password' in data and 'password_confirmation' in data:
+            password = data['password']
+            password_confirmation = data['password_confirmation']
+        else:
+            raise forms.ValidationError('Passwords are required please')
 
         if password != password_confirmation:
             raise forms.ValidationError('Passwords do not match')

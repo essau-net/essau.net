@@ -6,13 +6,19 @@
         </li>
         <li class="nav-container__element"></li>
         <li class="nav-container__element">
-            Sign in 
+            <a href=" {% url 'posts:feed' %} ">Posts</a>
         </li>
         <li class="nav-container__element">
-            Posts
+            <a href="">Acerca</a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-container__element">
-            Acerca
+            <a href=" {% url 'users:logout' %}"> Log out</a>
         </li>
+        {% else %}
+        <li class="nav-container__element">
+            <a href=" {% url 'users:login' %} ">Sign in</a>
+        </li>
+        {% endif %}
     </ul>
 </nav>

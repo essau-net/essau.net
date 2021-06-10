@@ -10,6 +10,9 @@ from users.models import User
 class Categories(models.Model):
     category_name = models.CharField(unique=True, max_length=30)
 
+    def __str__(self):
+        return self.category_name
+
     class Meta:
         managed = False
         db_table = 'categories'
@@ -24,6 +27,9 @@ class Posts(models.Model):
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
 
+    def __str__(self):
+        return f'{self.title} by @{self.user_id.username}'
+
     class Meta:
         managed = False
         db_table = 'posts'
@@ -35,6 +41,9 @@ class Comments(models.Model):
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField()
 
+    def __str__(self):
+        return f'Commnet created by @{self.user_id.username} in the {self.post_id.title} post'
+
     class Meta:
         managed = False
         db_table = 'comments'
@@ -42,6 +51,9 @@ class Comments(models.Model):
 
 class Languages(models.Model):
     language = models.CharField(unique=True, max_length=3)
+
+    def __str__(self):
+        return self.language
 
     class Meta:
         managed = False
@@ -52,6 +64,9 @@ class PostImages(models.Model):
     post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     image_id = models.ForeignKey(Images, models.DO_NOTHING)
 
+    def __str__(self):
+        return f'This image correspond to {self.post_id.title} post'
+
     class Meta:
         managed = False
         db_table = 'post_images'
@@ -61,6 +76,9 @@ class PostsLanguages(models.Model):
     post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     language_id = models.ForeignKey(Languages, models.DO_NOTHING)
 
+    def __str__(self):
+        return f'The post {self.post_id.title} is in {self.language_id.language}'
+
     class Meta:
         managed = False
         db_table = 'posts_languages'
@@ -68,6 +86,9 @@ class PostsLanguages(models.Model):
 
 class Tags(models.Model):
     tag_name = models.CharField(unique=True, max_length=30)
+
+    def __str__(self):
+        return self.tag_name
 
     class Meta:
         managed = False
@@ -78,6 +99,8 @@ class PostsTags(models.Model):
     post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     tag_id = models.ForeignKey('Tags', models.DO_NOTHING)
 
+    def __str__(self):
+        return f'The post {self.post_id.title} have the {self.tag_id.tag_name} tag'
     class Meta:
         managed = False
         db_table = 'posts_tags'
