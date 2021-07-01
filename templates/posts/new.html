@@ -14,26 +14,67 @@
         <form action=" {% url 'posts:new_post' %}" method="POST" class="form-new-post form">
             {% csrf_token %}
             
-            <label for="title" class="field-new-post field">
+            <label for="title" class="field-new-post field
+                {% if form.title.errors %} 
+                    field-error
+                {% endif %} ">
                 <span class="field-new-post__element">Titulo</span>
-                <input type="text" id="title" class="field-new-post__element" placeholder="El titulo de tu post" name="title">
+                <input type="text" id="title" class="field-new-post__element" placeholder="El titulo de tu post" name="title"
+                {% if form.errors %}
+                    value="{{ form.title.value }}" 
+                {% endif %}>
+                <p>
+                    {% for error  in form.title.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
             </label>
 
-            <label for="language" class="field-new-post field">
+            <label for="language" class="field-new-post field
+            {% if form.language.errors %}
+                field-error
+            {% endif %} ">
                 <span class="field-new-post__element">
                     Idioma
                 </span>
-                <input type="text" id="language" class="field-new-post__element" placeholder="Idioma del post" name="language">
+                <input id="language" class="field-new-post__element" placeholder="Idioma del post" name="language" list="language-options"
+                {% if form.errors %}
+                    value="{{ form.language.value }}"
+                {% endif %} >
+                <datalist id="language-options">
+                    {% for language in languages %}
+                        <option value="{{ language }}"></option>
+                    {% endfor %}
+                </datalist>
+                <p>
+                    {% for error in form.language.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
             </label>
 
-            <label for="category_name" class="field-new-post field">
+            <label for="category_name" class="field-new-post field
+            {% if form.category_name.errors %} 
+               field-error
+            {% endif %} ">
                 <span class="field-new-post__element">
                     Categoria
                 </span>
-                <input type="text" id="category_name" class="field-new-post__element" placeholder="Categoria del post" name="category_name">
+                <input type="text" id="category_name" class="field-new-post__element" placeholder="Categoria del post" name="category_name"
+                {% if form.errors %} 
+                    value="{{ form.category_name.value }}"
+                {% endif %} >
+                <p>
+                    {% for error in form.category_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
             </label>
 
-            <label for="tags-input" class="field-new-post field">
+            <label for="tags-input" class="field-new-post field
+            {% if form.tags.errors %}
+                field-error
+            {% endif %} ">
                 <span class="field-new-post__element">Tags</span>
                 <input id="tags-input" class="field-new-post__element" placeholder="Tags del post" list="tags-options" onkeydown="return event.key != 'Enter';">
                 <datalist id="tags-options">
@@ -41,24 +82,49 @@
                     <option value="Computer"></option>
                     <option value="History"></option>
                 </datalist>
+                <p>
+                    {% for error in form.tags.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
                 <ul id="list-tags" class="tag-list">
 
                 </ul>
                 <input type="hidden" id="tags" name="tags">
             </label>
 
-            <label for="content" class="field-new-post field">
+            <label for="content" class="field-new-post field
+            {% if form.content.errors %}
+                field-error
+            {% endif %}">
                 <span class="field-new-post__element">
                     Contenido
                 </span>
+                
                 <textarea id="content"  class="field-new-post__element" placeholder="Escribe tus ideas" name="content" rows="10"></textarea>
+                <p>
+                    {% for error in form.content.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
             </label>
 
-            <label for="images" class="field-new-post field">
+            <label for="images" class="field-new-post field
+            {% if form.img.errors %}
+                field-error
+            {% endif %}">
                 <span class="field-new-post__element">
                     Images
                 </span>
-                <input type="file" class="field-new-post__element" multiple>
+                <input type="file" class="field-new-post__element" name="img" multiple
+                {% if form.errors %} 
+                    value="{{ form.img.value }}"
+                {% endif %} >
+                <p>
+                    {% for error in form.img.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
             </label>
             
             <div class="field-new-post btn-form-new-post-container btn-form-container">

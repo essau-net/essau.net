@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 #utilities
-import environ
+from os import environ
 #django
 from pathlib import Path
 
@@ -19,8 +19,6 @@ from pathlib import Path
 #local apps
 
 #Initializing environment variables
-env_var = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env_var('SECRET_KEY')
+SECRET_KEY = environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,10 +51,9 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
-    'images',
     'posts',
     'users',
-
+    'metadata_post',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -99,12 +96,12 @@ WSGI_APPLICATION = 'essau.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env_var('DATABASE_ENGINE'),
-        'NAME': env_var('DATABASE_NAME'),
-        'USER': env_var('DATABASE_USER'),
-        'PASSWORD': env_var('DATABASE_PASS'),
-        'HOST': env_var('DATABASE_HOST'),
-        'PORT': env_var('DATABASE_PORT'),
+        'ENGINE': environ.get('DB_ENGINE'),
+        'NAME': environ.get('DB_NAME'),
+        'USER': environ.get('DB_USER'),
+        'PASSWORD': environ.get('DB_PASS'),
+        'HOST': environ.get('DB_HOST'),
+        'PORT': environ.get('DB_PORT'),
         
     }
 }

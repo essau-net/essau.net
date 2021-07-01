@@ -9,7 +9,8 @@
 .field-error{
     color: var(--color-font-error);
 }
-.field-error input {
+.field-error input,
+.field-error textarea {
     border-color: var(--border-color-error-input);
 }
 
@@ -121,8 +122,12 @@ main .form-signup-container-error {
 }
 
 /* form NEW POST*/
+.form-container-new-post{
+    height: 100%;
+    overflow-y: scroll;
+}
 .form-new-post {
-    height: 85vh;
+    height: 100%;
     margin-top: 10px;
     width: 90vw;
 }

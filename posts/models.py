@@ -1,21 +1,21 @@
+"""Models to post data and its components"""
 #Djangos apps
 from django.db import models
 
 #Local apps
-from images.models import Images
-from users.models import User
 
+from users.models import User
 
 
 class Categories(models.Model):
     category_name = models.CharField(unique=True, max_length=30)
 
-    def __str__(self):
-        return self.category_name
-
     class Meta:
         managed = False
         db_table = 'categories'
+
+    def __str__(self):
+        return self.category_name
 
 
 class Posts(models.Model):
@@ -35,72 +35,49 @@ class Posts(models.Model):
         db_table = 'posts'
 
 
+class Images(models.Model):
+    url_image = models.CharField(max_length=255, blank=True, null=True)
+    image_format = models.CharField(max_length=3, blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'images'
+
+    def __str__(self):
+        return f'The image have the path {self.url_image} and its format is {self.image_format}'
+
+
 class Comments(models.Model):
     user_id = models.ForeignKey(User, models.DO_NOTHING)
     post_id = models.ForeignKey(Posts, models.DO_NOTHING)
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField()
 
-    def __str__(self):
-        return f'Commnet created by @{self.user_id.username} in the {self.post_id.title} post'
-
     class Meta:
         managed = False
         db_table = 'comments'
+
+    def __str__(self):
+        return f'Commnet created by @{self.user_id.username} in the {self.post_id.title} post'
 
 
 class Languages(models.Model):
     language = models.CharField(unique=True, max_length=3)
 
-    def __str__(self):
-        return self.language
-
     class Meta:
         managed = False
         db_table = 'languages'
 
-
-class PostImages(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    image_id = models.ForeignKey(Images, models.DO_NOTHING)
-
     def __str__(self):
-        return f'This image correspond to {self.post_id.title} post'
-
-    class Meta:
-        managed = False
-        db_table = 'post_images'
-
-
-class PostsLanguages(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    language_id = models.ForeignKey(Languages, models.DO_NOTHING)
-
-    def __str__(self):
-        return f'The post {self.post_id.title} is in {self.language_id.language}'
-
-    class Meta:
-        managed = False
-        db_table = 'posts_languages'
+        return self.language
 
 
 class Tags(models.Model):
     tag_name = models.CharField(unique=True, max_length=30)
 
-    def __str__(self):
-        return self.tag_name
-
     class Meta:
         managed = False
         db_table = 'tags'
 
-
-class PostsTags(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    tag_id = models.ForeignKey('Tags', models.DO_NOTHING)
-
     def __str__(self):
-        return f'The post {self.post_id.title} have the {self.tag_id.tag_name} tag'
-    class Meta:
-        managed = False
-        db_table = 'posts_tags'
+        return self.tag_name

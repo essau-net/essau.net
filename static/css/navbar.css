@@ -8,6 +8,7 @@
     height: 100%;
     width: 100%;
     color: var(--font-color);
+    position: static;
 }
 .nav .nav-container {
     align-items: center;

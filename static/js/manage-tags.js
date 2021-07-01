@@ -60,6 +60,11 @@ function show_tag(tag) {
     
 }
 
+function show_tags(tags) {
+    for(tag in tags){
+        show_tag(tag)
+    }
+}
 
 function removeElement(event) {
 
@@ -75,7 +80,6 @@ function removeElement(event) {
     tags_values_to_backend.value = tags
 
 }
-
 
 input_tags.addEventListener('input', input_action)
 input_tags.addEventListener('blur', add_tag )

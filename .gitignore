@@ -1,3 +1,2 @@
-venv/
-essau/.env
+.venv/
 __pycache__/
