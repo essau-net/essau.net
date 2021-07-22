@@ -82,21 +82,3 @@ class PostsTagsManager:
     def createTables(self):
         for tag in self.tags:
             PostsTags.objects.create(post=self.post, tag=tag)
-
-
-class PostsLanguagesManager:
-    """Posts_languages manager data"""
-    def __init__(self, post, language):
-        self.__post = post
-        self.__language = language
-
-    @property
-    def post(self):
-        return self.__post
-    
-    @property
-    def language(self):
-        return self.__language
-
-    def createTable(self):
-        PostsLanguages.objects.create(post=self.post, language=self.language)

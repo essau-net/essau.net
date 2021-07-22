@@ -92,11 +92,10 @@ class CreatePostForm(forms.Form):
         data = self.cleaned_data
         data['user'] = user_id
 
-        language = data['language']
+        
         tags = data['tags']
-        image_data = data['image']
 
-        data.pop('language')
+        
         data.pop('tags')
         data.pop('image')
         data.pop('content')
@@ -104,4 +103,7 @@ class CreatePostForm(forms.Form):
         post = Posts(**data)
         post.save()
 
+        print(f'\n\n\n {tags}')
 
+        poststags_manager = PostsTagsManager(post=post, tags=tags)
+        poststags_manager.createTables()       

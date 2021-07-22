@@ -20,12 +20,25 @@ class Categories(models.Model):
         return self.category
 
 
+class Languages(models.Model):
+    language = models.CharField(unique=True, max_length=3)
+
+    class Meta:
+        managed = False
+        db_table = 'languages'
+
+    def __str__(self):
+        return self.language
+
+
 class Posts(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING)
+    language = models.ForeignKey(Languages, models.DO_NOTHING )
     category = models.ForeignKey(Categories, models.DO_NOTHING)
     title = models.CharField(max_length=150)
     url_markdown_file = models.CharField(max_length=500, blank=False, null=False)
     url_html_file = models.CharField(max_length=500, blank=False, null=False)
+     
     published = models.IntegerField(default=True)
     created_at = models.DateTimeField(auto_now_add=True,)
     publicated_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
@@ -63,17 +76,6 @@ class Comments(models.Model):
 
     def __str__(self):
         return f'Commnet created by @{self.user.username} in the {self.post.title} post'
-
-
-class Languages(models.Model):
-    language = models.CharField(unique=True, max_length=3)
-
-    class Meta:
-        managed = False
-        db_table = 'languages'
-
-    def __str__(self):
-        return self.language
 
 
 class Tags(models.Model):

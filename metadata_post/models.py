@@ -7,18 +7,6 @@ from posts.models import Posts, Languages, Images, Tags
 
 
 # Create your models here.
-class PostsLanguages(models.Model):
-    post = models.ForeignKey(Posts, models.DO_NOTHING)
-    language = models.ForeignKey(Languages, models.DO_NOTHING)
-
-    def __str__(self):
-        return f'The post {self.post.title} is in {self.language.language}'
-
-    class Meta:
-        managed = False
-        db_table = 'posts_languages'
-
-
 class PostsTags(models.Model):
     post = models.ForeignKey(Posts, models.DO_NOTHING)
     tag = models.ForeignKey(Tags, models.DO_NOTHING)

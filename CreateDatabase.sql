@@ -47,10 +47,11 @@ CREATE TABLE IF NOT EXISTS tags(
 CREATE TABLE IF NOT EXISTS posts(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
+    language_id BIGINT NOT NULL,
     category_id BIGINT NOT NULL,
     title VARCHAR(250) NOT NULL,
-    url_markdown_file VARCHAR(500) NOT NULL,
-    url_html_file VARCHAR(500) NOT NULL,
+    url_markdown_file VARCHAR(500) NULL,
+    url_html_file VARCHAR(500) NULL,
     published BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     publicated_at TIMESTAMP NULL,
@@ -60,6 +61,9 @@ CREATE TABLE IF NOT EXISTS posts(
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
     FOREIGN KEY (category_id) REFERENCES categories(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+    FOREIGN KEY (language_id) REFERENCES languages(id)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 );
