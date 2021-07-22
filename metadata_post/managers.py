@@ -1,128 +1,102 @@
-#Utilities
-from iso639 import languages as iso_languages
-
-#Django
-from django.forms import ValidationError
-
 #local
-from metadata_post.models import Languages as LanguagesModel
-from posts.models import Categories as CategoriesModel
-
-class DataManager:
-    """Manage data between models and views"""
-
-    class Languages:
-        """Manage Language data"""
+from posts.models import Languages, Categories, Tags
+from metadata_post.models import PostsLanguages, PostsTags
 
 
-        def __init__(self, language=''):
-            """constructor"""
-            self.__language = language.title()
+class TagsManager:
+    """Tags data manager """
+    
+    def __init__(self, tags):
+        self.__tags = tags.split(',')
+
+    @property
+    def tags(self):
+        """Tags' getter"""
+        return self.__tags
+
+    @tags.setter
+    def tags(self, tags):
+        self.__tags = tags.split(',')
+    
+    @staticmethod
+    def tag_exist(self, tag):
+
+        try:
+            local_tag = Tags.objects.get(tag=tag)
+
+        except Tags.DoesNotExist: 
+            local_tag = Tags(tag=tag)
+            local_tag.save()
+        
+        return local_tag
+
+    def tags_exist(self):
+        tags = [TagsManager.tag_exist(self, tag) 
+                for tag in self.tags]
+        return tags
 
 
-        @property
-        def language(self):
-            """language getter"""
-            return self.__language
+class CategoriesManager:
+    """Categories  data manager"""
+
+    
+    def __init__(self, category=''):
+        self.__category =  category   
+
+    @property
+    def category(self):
+        return self.__category
+
+    @category.setter
+    def category(self, category):
+        self.__category = category
+
+    def category_exist(self):
+        """Check if category exist, if not create it
+        return info category's field"""
+        
+        try:
+            category =  Categories.objects.get(category=self.category)
+        
+        except Categories.DoesNotExist:
+            category =  Categories(category=self.category)
+            category.save()
+
+        return category
+        
+
+class PostsTagsManager:
+    
+    def __init__(self, post, tags):
+        self.__post = post
+        self.__tags = tags
+
+    @property
+    def post(self):
+        return self.__post
+
+    @property
+    def tags(self):
+        return self.__tags
+
+    def createTables(self):
+        for tag in self.tags:
+            PostsTags.objects.create(post=self.post, tag=tag)
 
 
-        @language.setter
-        def language(self, language):
-            """languages setter
-            if language is in  spanish or french translate to english"""
+class PostsLanguagesManager:
+    """Posts_languages manager data"""
+    def __init__(self, post, language):
+        self.__post = post
+        self.__language = language
 
-            #Language of my interest
-            if language == 'Español' or language == 'Espanol':
-                language = 'Spanish'
-            elif language == 'Frances' or language == 'Francés' or language == 'Français':
-                language = 'French'
+    @property
+    def post(self):
+        return self.__post
+    
+    @property
+    def language(self):
+        return self.__language
 
-            try: 
-                self.__language = iso_languages.get(name=language.title()).bibliographic
-            except KeyError:
-                raise ValidationError('Please check the language writing')
-
-
-        @staticmethod
-        def language_in_ISO_format(self, language):
-            """Check if the class language variable is in ISO format"""
-
-            if len(language) == 3:
-                try:
-                    iso_languages.get(bibliographic=language.lower())
-                    return True
-
-                except KeyError: return False
-
-
-        @staticmethod
-        def iso_to_language(self, language):
-            """Take a variable with iso format language and return its name"""
-
-            iso_format = Languages.language_in_ISO_format(self, language)
-
-            if iso_format:
-                language = iso_languages.get(bibliographic=language.lower())
-                return  language.name
-
-        def language_exist(self):
-            """Check if the language exist, if not create it.
-            Return info language's field"""
-
-            lang_exist = LanguagesModel.objects.filter(language=self.language)
-
-            if lang_exist:
-                return lang_exist
-            else:
-                return LanguagesModel.objects.create(language=self.language)
-
-
-        def language_to_iso(self, language):
-            """Convert a name language to ISO standard"""
-
-            iso_format = Languages.language_in_ISO_format(self,language)
-
-            if iso_format is False:
-                return language
-            else:
-                language = iso_languages.get(bibliographic=language.lower())
-
-                return language
-
-
-
-        def all_iso_to_languages(self, all_obj_languages):
-            """Take a list of languages in ISO format and return a list with language's name""" 
-            all_languages = [Languages.iso_to_language(self, language_obj.language) 
-                             for language_obj in all_obj_languages]
-
-            return all_languages
-
-
-    class Categories:
-        """Manage categories data"""
-
-        def __init__(self, category_name=''):
-            self.__category_name =  category_name
-
-        @property
-        def category_name(self):
-            return self.__category_name
-
-        @category_name.setter
-        def category_name(self, category_name):
-            self.__category_name = category_name
-
-        def category_exist(self, category_name):
-            """Check i category exist, if not create it
-            return info category's field"""
-
-            category_exist = CategoriesModel.objects.filter(category_name=category_name)
-
-            if category_exist:
-                return category_exist
-            else:
-                return CategoriesModel.objects.create(category_name=category_name)
-
-
-
+    def createTable(self):
+        PostsLanguages.objects.create(post=self.post, language=self.language)

@@ -8,11 +8,11 @@ from posts.models import Posts, Languages, Images, Tags
 
 # Create your models here.
 class PostsLanguages(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    language_id = models.ForeignKey(Languages, models.DO_NOTHING)
+    post = models.ForeignKey(Posts, models.DO_NOTHING)
+    language = models.ForeignKey(Languages, models.DO_NOTHING)
 
     def __str__(self):
-        return f'The post {self.post_id.title} is in {self.language_id.language}'
+        return f'The post {self.post.title} is in {self.language.language}'
 
     class Meta:
         managed = False
@@ -20,19 +20,19 @@ class PostsLanguages(models.Model):
 
 
 class PostsTags(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    tag_id = models.ForeignKey(Tags, models.DO_NOTHING)
+    post = models.ForeignKey(Posts, models.DO_NOTHING)
+    tag = models.ForeignKey(Tags, models.DO_NOTHING)
 
     def __str__(self):
-        return f'The post {self.post_id.title} have the {self.tag_id.tag_name} tag'
+        return f'The post {self.post.title} have the {self.tag.tag_name} tag'
     class Meta:
         managed = False
         db_table = 'posts_tags'
 
 
 class PostImages(models.Model):
-    post_id = models.ForeignKey(Posts, models.DO_NOTHING)
-    image_id = models.ForeignKey(Images, models.DO_NOTHING)
+    post = models.ForeignKey(Posts, models.DO_NOTHING)
+    image = models.ForeignKey(Images, models.DO_NOTHING)
 
 
     class Meta:
@@ -40,4 +40,4 @@ class PostImages(models.Model):
         db_table = 'post_images'
 
     def __str__(self):
-        return f'This image correspond to {self.post_id.title} post'
+        return f'This image correspond to {self.post.title} post'

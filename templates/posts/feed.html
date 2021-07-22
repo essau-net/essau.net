@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block container %}
-    <p>It works</p>
+    <section>
+        <section>
+            {% for post in posts %}
+                {% include "posts/post_card.html" %}
+            {% endfor %}
+        </section>
+    </section>
 {% endblock%}

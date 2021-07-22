@@ -1,16 +1,16 @@
 """Posts URLs"""
-#Django
+# Django
 from django.urls import path
 
-#Views
-from posts import views 
+# Views
+from posts import views
 
 urlpatterns = [
 
     path(
-        route = '',
-        view = views.PostFeedView.as_view(),
-        name= 'feed'
+        route='',
+        view=views.PostFeedView.as_view(),
+        name='feed'
     ),
 
     path(

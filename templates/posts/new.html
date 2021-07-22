@@ -13,6 +13,12 @@
     <article class="form-container-new-post form-container">
         <form action=" {% url 'posts:new_post' %}" method="POST" class="form-new-post form">
             {% csrf_token %}
+
+            {% for error in form.non_field_errors %}
+                <div class="field-error">
+                    <p> {{ error }} </p>
+                </div>
+            {% endfor %}
             
             <label for="title" class="field-new-post field
                 {% if form.title.errors %} 
@@ -53,19 +59,24 @@
                 </p>
             </label>
 
-            <label for="category_name" class="field-new-post field
-            {% if form.category_name.errors %} 
+            <label for="category" class="field-new-post field
+            {% if form.categories.errors %} 
                field-error
             {% endif %} ">
                 <span class="field-new-post__element">
                     Categoria
                 </span>
-                <input type="text" id="category_name" class="field-new-post__element" placeholder="Categoria del post" name="category_name"
+                <input id="category" class="field-new-post__element" placeholder="Categoria del post" name="category" list="categories-options"
                 {% if form.errors %} 
-                    value="{{ form.category_name.value }}"
+                    value="{{ form.category.value }}"
                 {% endif %} >
+                <datalist id="categories-options">
+                    {% for category in categories %}
+                        <option value="{{ category }}"></option>
+                    {% endfor %}
+                </datalist>
                 <p>
-                    {% for error in form.category_name.errors %}
+                    {% for error in form.category.errors %}
                         {{ error }}
                     {% endfor %}
                 </p>
@@ -78,9 +89,9 @@
                 <span class="field-new-post__element">Tags</span>
                 <input id="tags-input" class="field-new-post__element" placeholder="Tags del post" list="tags-options" onkeydown="return event.key != 'Enter';">
                 <datalist id="tags-options">
-                    <option value="Books"></option>
-                    <option value="Computer"></option>
-                    <option value="History"></option>
+                    {% for tag in tags %}
+                        <option value="{{ tag }}"></option>
+                    {% endfor %}
                 </datalist>
                 <p>
                     {% for error in form.tags.errors %}
@@ -101,7 +112,9 @@
                     Contenido
                 </span>
                 
-                <textarea id="content"  class="field-new-post__element" placeholder="Escribe tus ideas" name="content" rows="10"></textarea>
+                <textarea id="content"  class="field-new-post__element" placeholder="Escribe tus ideas" name="content" rows="10" >
+                    
+                </textarea>
                 <p>
                     {% for error in form.content.errors %}
                         {{ error }}

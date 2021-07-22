@@ -28,7 +28,10 @@
                 field-error
             {%endif%} ">
             <span class=" field-signup__element">Username</span>
-            <input type="text" id="username" class="field-signup__element" name="username" placeholder="Username">
+            <input type="text" id="username" class="field-signup__element" name="username" placeholder="Username"
+            {% if form.error %}
+                value=" {{ form.username.value }} "
+            {% endif %}>
             <p>
                 {% for error in form.username.errors %}
                     {{error}}
@@ -41,7 +44,10 @@
                 field-error
             {% endif %} ">
             <span class="field-signup__element">Email</span>
-            <input type="email" id="email" class="field-signup__element" name="email" placeholder="email">
+            <input type="email" id="email" class="field-signup__element" name="email" placeholder="email"
+            {% if form.error %}
+                value=" {{ form.email.value }} "
+            {% endif %}>
             <p>
                 {% for error in form.email.errors %}
                     {{ error }}
@@ -54,7 +60,10 @@
                 field-error
             {% endif %}">
             <span class="fiel-signup__element">Nombre(s)</span>
-            <input type="text" id="first_name"  class="field-signup__element" name="first_name" placeholder="Juan">
+            <input type="text" id="first_name"  class="field-signup__element" name="first_name" placeholder="Juan"
+            {% if form.error %}
+                value=" {{ form.first_name.value }} "
+            {% endif %}>
             <p>
                 {% for error in form.first_name.errors %}
                     {{ error }}
@@ -67,7 +76,10 @@
                 field-error
             {% endif %}">
             <span class="fiel-signup__element">Apellido(s)</span>
-            <input type="text" id="last_name"  class="field-signup__element" name="last_name" placeholder="Peréz">
+            <input type="text" id="last_name"  class="field-signup__element" name="last_name" placeholder="Peréz"
+            {% if form.error %}
+                value=" {{ form.last_name.value }} "
+            {% endif %}>
             <p>
                 {% for error in form.last_name.errors %}
                     {{ error }}

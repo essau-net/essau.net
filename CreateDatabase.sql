@@ -7,32 +7,26 @@ USE essau;
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(150) UNIQUE NOT NULL,
-    firstname VARCHAR(150),
-    lastname VARCHAR(150),
+    first_name VARCHAR(150),
+    last_name VARCHAR(150),
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    is_staff BOOLEAN DEFAULT FALSE,
-    is_active BOOLEAN DEFAULT TRUE,
-    is_superuser BOOLEAN DEFAULT FALSE,
+    is_staff BOOLEAN NOT NULL DEFAULT FALSE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    is_superuser BOOLEAN  NOT NULL DEFAULT FALSE,
     last_login TIMESTAMP,
     date_joined TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
-    url_img_profile VARCHAR(250)
+    url_img_profile VARCHAR(500)
 );
 
-CREATE TABLE IF NOT EXISTS format_images(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    image_format CHAR(3)
-);
+
 
 CREATE TABLE IF NOT EXISTS images (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    imageformat_id BIGINT NOT NULL,
-    url_image VARCHAR(400) UNIQUE NOT NULL,
-    FOREIGN KEY (imageformat_id) REFERENCES format_images(id)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT
+    url_image VARCHAR(500) UNIQUE NOT NULL,
+    imageformat_id char(3) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories(
@@ -55,7 +49,8 @@ CREATE TABLE IF NOT EXISTS posts(
     user_id BIGINT NOT NULL,
     category_id BIGINT NOT NULL,
     title VARCHAR(250) NOT NULL,
-    content TEXT NOT NULL,
+    url_markdown_file VARCHAR(500) NOT NULL,
+    url_html_file VARCHAR(500) NOT NULL,
     published BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     publicated_at TIMESTAMP NULL,
