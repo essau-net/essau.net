@@ -94,18 +94,6 @@ CREATE TABLE IF NOT EXISTS posts_images(
         ON DELETE RESTRICT
 );
 
-CREATE TABLE IF NOT EXISTS posts_languages(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    post_id BIGINT NOT NULL,
-    language_id BIGINT NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts(id)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT,
-    FOREIGN KEY (language_id) REFERENCES languages(id)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT
-);
-
 CREATE TABLE IF NOT EXISTS posts_tags(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     post_id BIGINT NOT NULL,

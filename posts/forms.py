@@ -8,7 +8,7 @@ from django import forms
 from django.forms import fields
 
 # Local
-from metadata_post.managers import  TagsManager, CategoriesManager, PostsTagsManager, PostsLanguagesManager
+from metadata_post.managers import  TagsManager, CategoriesManager, PostsTagsManager
 from posts.managers import LanguagesManager, PostsManager
 
 from posts.models import Posts
@@ -102,8 +102,6 @@ class CreatePostForm(forms.Form):
 
         post = Posts(**data)
         post.save()
-
-        print(f'\n\n\n {tags}')
 
         poststags_manager = PostsTagsManager(post=post, tags=tags)
         poststags_manager.createTables()       

@@ -1,6 +1,6 @@
 #local
-from posts.models import Languages, Categories, Tags
-from metadata_post.models import PostsLanguages, PostsTags
+from posts.models import Categories, Tags
+from metadata_post.models import PostsTags
 
 
 class TagsManager:
