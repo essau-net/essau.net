@@ -1,0 +1,16 @@
+<article class="form-container">
+    <form action="{% url 'posts:detail' post.pk %}" method="POST" class="form form-new-comment">
+        {% csrf_token %}
+        
+        <label for="content" class="field field-comment">
+            <textarea name="content" id="content" clas>
+
+            </textarea>
+        </label>
+        <div class="btn-form-container btn-comment-container">
+           <button type="submit" class="btn-form-container__element">
+               Publicar
+           </button>
+        </div>
+    </form>
+</article>

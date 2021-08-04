@@ -1,21 +1,26 @@
-{% extends "base.html"%} {% block head_content%}
+{% extends "base.html"%} {% block head_content%} {% load static %}
+<link rel="stylesheet" href="{% static 'css/feed.css' %}" />
 <title>@{{ request.user.username }} | feed</title>
 {% endblock %} {% block container %}
-<section>
-  <section>
-    {% for '(key, post)' in 'posts.item()' %}
-    <h2>{{ post.title }}</h2>
-    <ul>
-      <li>{{ post.category }}</li>
-      <li>{{ post.language }}</li>
-      <li>{{ post.publicated_at }}</li>
-    </ul>
-    <ul>
-      {% for  tag in post.tags %}
-      <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-    {% endfor %}
+<section class="feed">
+  {% for post in posts %}
+  <section class="feed-container">
+    <a href="{% url 'posts:detail' post.id %}">
+      <div class="header">
+        <h2 class="title">{{ post.title }}</h2>
+        <p>{{ post.publicated_at}}</p>
+      </div>
+      <ul class="additional-data">
+        <li class="additional-data__element">Lenguage: {{ post.language }}</li>
+        <li class="additional-data__element">Categoria: {{ post.category }}</li>
+      </ul>
+      <ul class="tags">
+        {% for tag in post.tags %}
+        <li class="tags__element">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+    </a>
   </section>
+  {% endfor %}
 </section>
 {% endblock%}

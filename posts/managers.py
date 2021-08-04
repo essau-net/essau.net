@@ -1,5 +1,8 @@
 # Utilities
 from datetime import date
+from os import curdir
+from pdb import set_trace
+from django.db.models import query
 from iso639 import languages as iso_languages
 from markdown import markdown
 from pathlib import Path
@@ -13,7 +16,7 @@ from posts.models import Posts, Languages
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-POSTS_FILES = BASE_DIR / "static/posts_files"
+POSTS_FILES = BASE_DIR / "blog-posts"
 
 
 class LanguagesManager:
@@ -96,6 +99,7 @@ class LanguagesManager:
 
 class PostsManager:
     def __init__(self, title="", content=""):
+        title = title.replace(" ", '-')
         self.__title = title
         self.__content = content
         self.__path_markdown_file = ""
@@ -125,8 +129,18 @@ class PostsManager:
     def path_html_file(self, path):
         self.__path_html_file = path
 
-    def get_ListPost_data(self):
-        
+
+    def get_post_data(self, id="%"):
+        """Get posts' data with:
+            tags,
+            language,
+            category
+        but just fields
+            posts.id
+            post.publicated_at
+            tags.tag
+            categories.category
+            languages.language"""
         cursor = connection.cursor()
 
         query = "SELECT posts.id," \
@@ -140,40 +154,55 @@ class PostsManager:
               " INNER JOIN categories ON categories.id = posts.category_id" \
               " INNER JOIN posts_tags ON posts_tags.post_id = posts.id" \
               " INNER JOIN tags ON tags.id = posts_tags.tag_id" \
-            " ORDER BY posts.publicated_at"
-        
+            f" WHERE posts.id LIKE '{id}'"\
+            " ORDER BY posts.publicated_at DESC"
+
         cursor.execute(query)
 
-        posts_data = cursor.fetchall()
-        post_data_dic = {}
+        posts = cursor.fetchall()
 
-        for post_data in posts_data:
-            title = post_data[1]
+        return posts
 
-            if title in post_data_dic:
-                post_data_dic[title]['tags'].append(post_data[3])
+    def post_data_to_array(self, posts, id="%" ):
+        """Convert all tuples obtained from get_post_data to an array"""
+
+        posts_data = []
+        count = 0
+
+        for index in range( len(posts) - 1 ):
+            post = posts[index]
+
+            if index > 0:
+                title = posts[index - 1][1]
             else:
-                post_data_dic[title] = {
-                    'title': post_data[1],
-                    'publicated_at': post_data[2],
-                    'tags': [post_data[3]],
-                    'category': post_data[4],
-                    'language': post_data[5]
-                }
-            for key, value in post_data_dic.items():
-                print(f'\n\n\n {value["category"]}\n\n\n')
-        return post_data_dic
+                title = ''
+
+            if title == posts[index][1]:
+                posts_data[count - 1]['tags'].append(post[3])
+
+            else:
+                posts_data.append( {
+                    'id': post[0],
+                    'title': post[1],
+                    'publicated_at': post[2],
+                    'tags': [post[3]],
+                    'category': post[4],
+                    'language': post[5]
+                } )
+                count += 1
+
+        return posts_data
 
     def createMarkdownFile(self):
         global POSTS_FILES
 
         unique_identifier = str(date.today())
 
-        name_file = self.title + unique_identifier + ".md"
+        name_file = "markdown/" + self.title + unique_identifier + ".md"
 
         path = POSTS_FILES / name_file
 
-        with open(path, "w+") as markdownFile:
+        with open(path, "w") as markdownFile:
             markdownFile.write(self.content)
 
         self.path_markdown_file = name_file
@@ -183,7 +212,7 @@ class PostsManager:
 
         unique_identifier = str(date.today())
 
-        name_file = self.title + unique_identifier + ".html"
+        name_file = "templates/" + self.title + unique_identifier + ".html"
 
         path_html = POSTS_FILES / name_file
         path_markdown = POSTS_FILES / self.path_markdown_file
@@ -196,3 +225,44 @@ class PostsManager:
             html_file.write(html_content)
 
         self.path_html_file = name_file
+
+class CommentsManager:
+
+    def __init__(self, post_id):
+        self.__post_id = post_id
+
+    @property
+    def post_id(self):
+        return self.__post_id
+
+    def get_post_comments(self):
+        cursor = connection.cursor()
+
+        query = "SELECT comments.id, " \
+                    "users.username, "\
+                    "comments.created_at, "\
+                    "comments.content "\
+                "FROM comments "\
+                    "INNER JOIN users ON users.id = comments.user_id "\
+                    "INNER JOIN posts ON posts.id = comments.post_id "\
+                f"WHERE posts.id = {self.post_id} " \
+                "ORDER BY comments.created_at DESC;"
+        
+        cursor.execute(query)
+
+        comments_data = cursor.fetchall() 
+
+        return comments_data
+
+    def comments_data_to_array(self, comments_data):
+        comments = []
+
+        for comment_data in comments_data:
+            comments.append({
+                "id": comment_data[0],
+                "username": comment_data[1],
+                "created_at": comment_data[2],
+                "content": comment_data[3]
+            })
+        
+        return comments

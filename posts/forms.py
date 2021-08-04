@@ -1,6 +1,7 @@
 """Posts Forms"""
 
 # Utilities
+from pdb import set_trace
 from iso639 import languages as iso_languages
 
 # Django
@@ -11,10 +12,11 @@ from django.forms import fields
 from metadata_post.managers import  TagsManager, CategoriesManager, PostsTagsManager
 from posts.managers import LanguagesManager, PostsManager
 
-from posts.models import Posts
+from posts.models import Comments, Posts
 
 
 class CreatePostForm(forms.Form):
+    """Form to publish a new post"""
 
     title = forms.CharField(
         required=True,
@@ -66,7 +68,7 @@ class CreatePostForm(forms.Form):
         return category
 
     def clean_tags(self):
-
+        """link tags with the post"""
         tags = self.cleaned_data['tags']
 
         tags_manager = TagsManager(tags.lower())
@@ -75,6 +77,7 @@ class CreatePostForm(forms.Form):
         return tags
 
     def clean(self):
+        """Create markdown and html files"""
         data = super().clean()
         
         post_manager = PostsManager(title=data['title'], content=data['content'])
@@ -92,9 +95,7 @@ class CreatePostForm(forms.Form):
         data = self.cleaned_data
         data['user'] = user_id
 
-        
         tags = data['tags']
-
         
         data.pop('tags')
         data.pop('image')
@@ -105,3 +106,24 @@ class CreatePostForm(forms.Form):
 
         poststags_manager = PostsTagsManager(post=post, tags=tags)
         poststags_manager.createTables()       
+    
+class NewCommentForm(forms.Form):
+    
+    content = forms.CharField (
+        required=True,
+        min_length=3,
+        widget=forms.Textarea(),
+    )
+
+    def save(self, user, post):
+        """Create comment and its additional data"""
+
+        data = self.cleaned_data
+        data['user'] = user
+        data['post'] = post
+
+        comment = Comments(**data)
+        import pdb;pdb.set_trace()
+
+        comment.save()
+

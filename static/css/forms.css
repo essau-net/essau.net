@@ -66,6 +66,7 @@
 .btn-form-container__element {
     align-items: flex-end;
     background-color: var(--btn-background-color);
+    border-color: var(--background-color);
     border-radius: 8px;
     font-size: 1.4rem;
     color: var(--font-color);
@@ -132,6 +133,38 @@ main .form-signup-container-error {
     width: 90vw;
 }
 
+/*form new COMMENT  */
+.form-container .form-new-comment {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.form-new-comment .field-comment{
+    flex-grow: 1;
+    height: 67px;
+    max-width: 70%;
+    width: 60vw;
+}
+
+.field-comment textarea {
+    height: 100%;
+    width: 96%;
+} 
+
+.form-new-comment .btn-comment-container {
+    height: 45px;
+    width: 18%;
+}
+.form-new-comment .btn-form-container__element {
+    min-width: 68px;
+    width: 100%;
+    max-width: 110px;
+}
+
+
 
 @media (min-width: 600px) {
 
@@ -192,7 +225,12 @@ main .form-signup-container-error {
         height: 87vh;
     }
     
+    /*new comment */
 
+    .form-new-comment .field-comment{ 
+        max-width: 80%;
+        height: 100px;
+    }
 }
 
 
@@ -246,5 +284,11 @@ main .form-signup-container-error {
     /*form NEW POST*/
     .form-new-post .btn-form-new-post-container {
         width: 86vw;
+    }
+
+    /* new COMMENT*/
+    .form-new-comment .field-comment{ 
+        max-width: 80%;
+        height: 120px;
     }
 }

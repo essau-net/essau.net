@@ -9,7 +9,7 @@
             <a href=" {% url 'posts:feed' %} ">Posts</a>
         </li>
         <li class="nav-container__element">
-            <a href="">Acerca</a>
+            <a href=" {% url 'posts:about' %} ">Acerca</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-container__element">

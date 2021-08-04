@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% load static %} {% block head_content %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}" />
+<link rel="stylesheet" href="{% static 'css/forms.css' %}" />
+<title>essau.net</title>
+{% endblock %} {% block container %}
+<section class="post">
+  <section class="post-container">
+    <h1 class="title">{{ post.title }}</h1>
+    {% include post.url_html_file %}
+  </section>
+  <section class="new-comment-container">
+    {% if user.is_authenticated %} {% include "comments/new_comment.html" %}
+    {%endif%}
+  </section>
+  <section class="show-comments-container">
+    {% for comment in comments%} {% include "comments/comment_card.html"%}
+    {%endfor%}
+  </section>
+</section>
+{% endblock %}
