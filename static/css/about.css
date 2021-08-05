@@ -1,0 +1,66 @@
+.about-me-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 2.2rem;
+    justify-content: center;
+    width: 80%;
+}
+.developer-image {
+    margin: 20px auto;
+    min-width: 210px;
+}
+.developer-image img{
+    border-radius: 60px;
+    width: 200px;
+}
+
+.developer-description__element {
+    margin: 15px auto;
+}
+
+.social-media-container{
+    margin: 15px auto;
+    width: 100%;
+}
+
+.social-media__element {
+    list-style: none;
+    
+}
+.social-media__element:hover {
+    cursor: pointer;
+}
+.social-media__element img {
+    width: 30px;
+    height: auto;
+}
+.developer-description,
+.web-description{
+    margin: 15px auto;
+    width: 100%;
+}
+
+
+@media (min-width:600px) {
+    .developer-image {
+        width: 20%;
+        order: 1;
+    }
+
+    .developer-description {
+        order: 2;
+        width: 60%;
+        margin: auto;
+    }
+
+    .web-description {
+        order: 3;
+        width: 100%;
+    }
+
+    .social-media-container {
+        order: 4;
+        width: 100%;
+    }
+}
+

@@ -1,6 +1,5 @@
 # utils
 # django
-from pdb import set_trace
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView, TemplateView
@@ -94,9 +93,7 @@ class PostDetailView(FormMixin, DetailView):
         return data
 
     def get_success_url(self):
-        data =  super().get_object()
-        
-        pk = 7
+        pk =  super().get_object().pk
         return reverse_lazy('posts:detail', kwargs={'pk': pk})
     
     def post (self, request, *args, **kwargs):

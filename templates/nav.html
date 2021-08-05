@@ -13,11 +13,11 @@
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-container__element">
-            <a href=" {% url 'users:logout' %}"> Log out</a>
+            <a href=" {% url 'users:logout' %}">Salir</a>
         </li>
         {% else %}
         <li class="nav-container__element">
-            <a href=" {% url 'users:login' %} ">Sign in</a>
+            <a href=" {% url 'users:login' %} ">Iniciar</a>
         </li>
         {% endif %}
     </ul>

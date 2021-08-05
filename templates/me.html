@@ -1,1 +1,83 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block head_content %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock head_content %} {% block container %}
+<section class="about-me-container">
+  <article class="developer-image">
+    <img src="{% static 'media/me.jpg' %}" alt="" loading="lazy" />
+  </article>
+  <article class="developer-description">
+    <p class="developer-description__element">
+      Hola mi nombre es Hector Esau Macias Javier tengo 20 años, me gusta
+      programar, leer, hacer ejercicio, cree está pagina para poder hablar de
+      las diversas cosas que voy aprendiendo y descubriendo, actualmente estoy
+      muy interesado en programación, historia y matematicas así que muy
+      probablemente sean los temas que suela tratar, probablemente cuando me
+      vacunen quiera hacer viajes y hable sobre ellos, relamente lo descubrire
+      conforme pase el tiempo
+    </p>
+  </article>
+  <article class="web-description">
+    <p>
+      Está pagina la cree yo mismo en la parte de back-end utilice MySQL, Django
+      y python, en la parte del front-end solo use CSS, HTML y JavaScript
+      realmente fue desafiante pero divertido, actualmente no está completa
+      simplemente es la primera versión funcional, la iré mejorando con el
+      tiempo
+    </p>
+  </article>
+  <article class="social-media-container">
+    <p class="developer-description__element">
+      Si me quieres contactar estás son mis redes sociales
+    </p>
+    <ul class="social-media">
+      <li id="twitter" class="social-media__element">
+        <a href="https://twitter.com/hecttoressau" class="social-media-link">
+          <img
+            src="{% static 'media/twitterLogo.png' %}"
+            alt=""
+            loading="lazy"
+          />
+          <span class="social-media-username">hecttoressau</span>
+        </a>
+      </li>
+      <li id="linkedin" class="social-media__element">
+        <a
+          href="https://www.linkedin.com/in/hector-esau-macias-javier-893175189/"
+          class="social-media-link"
+        >
+          <img
+            src="{% static 'media/linkedInLogo.png' %}"
+            alt=""
+            loading="lazy"
+          />
+          <span class="social-media-username">hecttoressau</span>
+        </a>
+      </li>
+      <li id="platzi" class="social-media__element">
+        <a href="https://platzi.com/p/hecttoressau/" class="social-media-link">
+          <img
+            src="{% static 'media/platziLogo.png' %}"
+            alt=""
+            loading="lazy"
+          />
+          <span class="social-media-username">hecttoressau</span>
+        </a>
+      </li>
+      <li id="telegram" class="social-media__element">
+        <a href="https://t.me/hecttoressau" class="social-media-link">
+          <img
+            src="{% static 'media/telegramLogo.png' %}"
+            alt=""
+            loading="lazy"
+          />
+          <span class="social-media-username">hecttoressau</span>
+        </a>
+      </li>
+      <li id="email" class="social-media__element">
+        <img src="{% static 'media/gmailLogo.png' %}" alt="" loading="lazy" />
+        <span class="social-media-username">hecttoressau@gmail.com</span>
+      </li>
+    </ul>
+  </article>
+</section>
+{% endblock container %}

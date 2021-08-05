@@ -1,7 +1,6 @@
 """Posts Forms"""
 
 # Utilities
-from pdb import set_trace
 from iso639 import languages as iso_languages
 
 # Django
@@ -123,7 +122,5 @@ class NewCommentForm(forms.Form):
         data['post'] = post
 
         comment = Comments(**data)
-        import pdb;pdb.set_trace()
-
         comment.save()
 
