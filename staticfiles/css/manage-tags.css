@@ -1,0 +1,31 @@
+.tag-list{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style: none;
+}
+
+.tag-list__element {
+    background-color: #C3C3C3;
+    border-radius:6px;
+    color: #424040;
+    font-size: 1.6rem;
+    margin:  3px 4px;
+    width: 90px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.tag-list__element span {
+    
+    color: #424040;
+    font-size: 2rem;  
+    width: 4px; 
+    
+}
+
+.tag-list__element span:hover {
+    cursor: pointer;
+}

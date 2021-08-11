@@ -1,0 +1,28 @@
+:root{
+    --font-color: #fffffd;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 62.5%;
+    background-color: #e4e4e2;
+}
+a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+header {
+    height: 47px;
+    width: 100%;
+}
+
+.main { 
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}

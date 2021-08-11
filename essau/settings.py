@@ -15,7 +15,7 @@ from os import environ
 from pathlib import Path
 
 #third-party apps
-
+import django_heroku
 #local apps
 
 #Initializing environment variables
@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -144,17 +144,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    BASE_DIR/'static',
-    BASE_DIR/'posts_files',
+    'static',
 )
+
+
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 
@@ -168,3 +170,5 @@ LOGOUT_REDIRECT_URL = LOGIN_URL
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+django_heroku.settings(locals())
