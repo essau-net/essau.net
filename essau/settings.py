@@ -15,7 +15,7 @@ from os import environ
 from pathlib import Path
 
 #third-party apps
-
+import django_heroku
 #local apps
 
 #Initializing environment variables
@@ -148,11 +148,15 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    'static',
+)
+
 
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 
@@ -166,3 +170,5 @@ LOGOUT_REDIRECT_URL = LOGIN_URL
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+django_heroku.settings(locals())
